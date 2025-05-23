@@ -163,40 +163,23 @@ public class GUI extends JFrame {
     }
 
     private Ork createNewOrk(String tribe, String type) {
-        OrkBuilder builder;
-
-        switch (tribe) {
-            case "Мордор":
-                builder = new MordorOrkBuilderFactory().createOrkBuilder();
-                break;
-            case "Мглистые горы":
-                builder = new MistyMountainsOrkBuilderFactory().createOrkBuilder();
-                break;
-            case "Дол Гулдур":
-                builder = new DolGuldurOrkBuilderFactory().createOrkBuilder();
-                break;
-            default:
-                throw new IllegalArgumentException("Неизвестное племя: " + tribe);
-        }
-        
+        OrkBuilder builder = OrkTribe.getByTribeName(tribe).createBuilder();
         OrkDirector director = new OrkDirector();
         director.setOrkBuilder(builder);
-        Ork ork;
-        
+
         switch (type) {
-         case "Разведчик":
-            ork = director.createScoutOrk();
-            break;
-        case "Командир":
-            ork = director.createLeaderOrk();
-            break;
-        default:
-            ork = director.createBasicOrk();
-            break;
+            case "Разведчик":
+                return director.createScoutOrk();
+                
+            case "Командир":
+                return director.createLeaderOrk();
+            default:
+                Ork ork = director.createBasicOrk();
+                ork.setType(type);
+                return ork;
         }
-        ork.setType(type);
-        return ork;
     }
+        
 
     private DefaultMutableTreeNode findTribeNode(String tribeName) {
         int childCount = treeModel.getChildCount(rootNode);

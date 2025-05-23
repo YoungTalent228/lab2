@@ -37,6 +37,7 @@ public class OrkDirector {
         ork.setStrength(ork.getStrength() + 20);
         ork.setHealth(ork.getHealth() + 50);
         ork.setBanner(ork.getBanner() + " и горн");
+        ork.setType("Командир");
         return ork;
     }
     
@@ -45,6 +46,7 @@ public class OrkDirector {
         ork.setWeapon("лук");
         ork.setAgility(ork.getAgility() + 30);
         ork.setHealth(ork.getHealth() - 20); 
+        ork.setType("Разведчик");
         return ork;
     }
     
